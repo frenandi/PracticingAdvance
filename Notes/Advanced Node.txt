@@ -177,5 +177,10 @@ Every child process gets three standar io streams
     -child.stdout
     -child.stderr
 
+CLUSTER MODULE
+---------------------------------------------------
+Enable load balancing
+cloning -> 1 machine
+
 
 -Nginx (Single Thread)
