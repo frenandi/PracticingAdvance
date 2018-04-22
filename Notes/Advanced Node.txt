@@ -1,0 +1,181 @@
+V8
+Node defualt
+
+V8 feautures
+-Shipping - On by defualt
+-Staged --harmony
+-In Progress
+
+libuv 
+to manage asynchronous operations (c library)
+Thread pool (event loop)
+
+Http-parser (C library)
+c-ares (enable perform asynchronous dns)
+OpenSSL
+zlib
+
+Node´s CLI and REPL
+-------------------------
+
+
+
+Global
+-------------------
+
+Process is an instace of the even emmiter)+
+
+Buffer Binary string of data (out of the v8)
+
+require appears in the Global
+module appears in the global
+
+REQUIRE
+--------------------
+To execute the require call
+resolving (to find the absolute file path)
+Loading (content of the file)
+Wrapping (special private scope to every module)
+Evaluating
+Caching
+
+MODULE
+-------------------------
+Circular module dependency is supported in node js
+
+Export is an special object
+
+with the require if no .js is found node is going to try to find 
+json and after that a .node file
+
+Wrapping module
+----------------------
+
+
+
+Whats is IO?
+Accesing disk and network resources (node)
+
+Event Loop
+Slow I/O operations
+
+Handling slow IO
+-Synchronous
+-fork()
+-Threads (Apache)
+-Event Loop (single thread like node)
+
+EVENT LOOP
+-Entity that handles external events and converts them into callback
+invocations.
+-Loop that picks events from the event queua and pushes their callbacks
+to the call stack
+
+Event Loop Data Sctructure
+
+V8 Contains the heap and the stack (both are part of the runtime engine)
+    heap  - where objects are stored in memory 
+    stack -
+Node API -
+Queue and EventLoop using the libuv library
+
+V8
+-----------------
+----------------------------
+CallStack
+-----------------
+List of functions
+FILO
+
+Asynchrony
+------------------------
+
+
+EventEmitter
+--------------------------
+Module that facilitates communication between objects in node..
+
+
+Requesting HTTP/HTTPS Data
+---------------------------------------
+5 major classes in the http module (node)
+-----------------------------------------------
+1. http.Server
+    -What whe use to create the basic server
+    -Inherits from net.Server/EE (EventEmitter)
+2. http.Agent
+    -Manage pulling sockets
+    -node uses the globalAgent by default
+3. http.IncomingMessage
+    -Implement the ReadableStream/EE
+4. http.ServerResponse
+    -Implement the WritableStream/EE
+5. http.ClientRequest
+    -When initiate a http request
+    -Implement the WritableStream/EE
+
+Console and utilities
+-console.log uses the util module
+
+Debugging in chrome (experimental)
+node --inspect --debug-brk file
+
+Type of streams
+    1. Readable fs.createReadStream
+    2. Writable fs.createWriteStream
+    3. Duplex readable and writable net.Socket
+    4. Transform Duplex stream can be used to modify the data
+    
+All streams are EventEmitter
+
+pipe -> consume streams src.pipe(dst);
+
+Why to scale node 
+1. Workload
+2. Availability
+3. Fault Tolerance
+
+Scalability Strategies
+1. Cloning
+2. Decomposing
+3. Splitting
+
+Child Processes Events and Standar IO
+-------------------------------------------
+Ways of create child process in node.js
+1. spawn() = 
+    -launches a command in a new process
+    -designed to run system command
+    -when spawn is ran you send it a system command that will be run on its own process
+    -No new V8 instance is created (at least that the command is a node command
+    but here should be used fork) only one copy of your node module is active 
+    on the processor.
+    -returns a streaming interface for I/O
+2. fork()
+    -special instance of spawn, that runs a fresh instance of the V8 engine.
+    -you can essentially create multiple workers, running on the exact same Node code base
+    or perhaps a different module for a specific task.
+    -is useful for creating a worker pool
+3. execFile()
+    -Executess an external application, given optional arguments and
+    callback with the buffered output after the aplication exits.
+        maxBuffer
+4. exec()
+    -will spawn a subshell and execute the command in that shell
+    and buffer generated data.
+
+
+-a good rule of thumb is one to two node processes per core.
+-all of the previous child processes are asynchronous
+-Calling the previous methods will return an object which is an
+instance of the ChildProcess class.
+-cwd refers to current working directory
+https://dzone.com/articles/understanding-execfile-spawn-exec-and-fork-in-node
+
+Every child process gets three standar io streams
+    -child.stdin
+    -child.stdout
+    -child.stderr
+
+
+-Nginx (Single Thread)
